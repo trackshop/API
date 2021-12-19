@@ -4,7 +4,6 @@ package nl.th7mo.trackshop.api.spotify.access_token;
 
 import nl.th7mo.trackshop.api.util.DotenvAdapter;
 
-import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
 
@@ -12,6 +11,8 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.http.MediaType;
 
 import com.google.gson.Gson;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public final class AccessTokenDAO {

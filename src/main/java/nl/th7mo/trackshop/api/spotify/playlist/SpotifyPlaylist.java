@@ -4,16 +4,16 @@ package nl.th7mo.trackshop.api.spotify.playlist;
 
 import java.util.List;
 
-public class Playlist {
+public class SpotifyPlaylist {
 
     public String name;
-    private Tracks tracks;
+    private SpotifyTracks tracks;
 
-    public List<Track> getTracks() {
+    public List<SpotifyTrack> getTracks() {
         return tracks.items.stream().map(item -> item.track).toList();
     }
 
-    private void setTracks(Tracks tracks) {
+    private void setTracks(SpotifyTracks tracks) {
         this.tracks = tracks;
     }
 }
