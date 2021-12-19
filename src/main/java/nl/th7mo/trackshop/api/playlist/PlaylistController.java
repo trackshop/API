@@ -20,7 +20,7 @@ public class PlaylistController {
     public PlaylistController(PlaylistDAO playlistDAO) {
         List<Track> tracks = new ArrayList<>();
         this.playlistDAO = playlistDAO;
-        SpotifyPlaylist spotifyPlaylist = SpotifyPlaylistDAO.get("468gi7HubCjfAqE1UJYYUO");
+        SpotifyPlaylist spotifyPlaylist = SpotifyPlaylistDAO.get("4MWtutmJdwJLX8p1SsTQal");
         for (SpotifyTrack track : spotifyPlaylist.getTracks()) {
             tracks.add(TrackTranslator.map(track));
         }
