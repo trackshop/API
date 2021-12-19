@@ -14,24 +14,25 @@ import com.google.gson.Gson;
 
 public final class AccessTokenDAO {
 
-    private static WebClient webClient;
+    private static WebClient httpClient;
 
     public static AccessToken get() {
         buildWebClient();
         RequestHeadersSpec<?> request = buildRequest();
+        String responseJson = receiveResponse(request);
 
-        return receiveResponse(request);
+        return mapToAccessToken(responseJson);
     }
 
     private static void buildWebClient() {
         String baseURL = DotenvAdapter.get("API_BASE_URL");
-        webClient = WebClient.create(baseURL);
+        httpClient = WebClient.create(baseURL);
     }
 
     private static RequestHeadersSpec<?> buildRequest() {
         String tokenURL = DotenvAdapter.get("TOKEN_REQUEST_URL");
 
-        return webClient.post()
+        return httpClient.post()
             .uri(tokenURL)
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .header(
@@ -44,11 +45,13 @@ public final class AccessTokenDAO {
             );
     }
 
-    private static AccessToken receiveResponse(RequestHeadersSpec<?> request) {
-        String responseJson = request.retrieve()
+    private static String receiveResponse(RequestHeadersSpec<?> request) {
+        return request.retrieve()
                 .bodyToMono(String.class)
                 .block();
+    }
 
+    private static AccessToken mapToAccessToken(String responseJson) {
         return new Gson().fromJson(responseJson, AccessToken.class);
     }
 }
