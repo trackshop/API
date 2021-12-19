@@ -12,8 +12,11 @@ import com.google.gson.Gson;
 
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Service
-public final class PlaylistDAO {
+public final class SpotifyPlaylistDAO {
 
     private static WebClient httpClient;
 
@@ -31,8 +34,8 @@ public final class PlaylistDAO {
     }
 
     private static WebClient.RequestHeadersSpec<?> buildRequest(String id) {
-        String fields = "name,tracks(items(track(album(artists,id,images)," +
-                        "duration_ms,name)))";
+        String fields = "id,name,tracks(items(track(album(artists,images)," +
+                        "duration_ms,name,id)))";
 
         return httpClient.get()
             .uri(uriBuilder -> uriBuilder
@@ -53,6 +56,7 @@ public final class PlaylistDAO {
     }
 
     private static SpotifyPlaylist mapToPlaylist(String responseJson) {
+        Logger.getLogger("f").log(Level.WARNING, responseJson);
         return new Gson().fromJson(responseJson, SpotifyPlaylist.class);
     }
 }
