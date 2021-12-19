@@ -6,10 +6,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Track {
+public class SpotifyTrack {
 
     public String name;
-    public Album album;
+    public SpotifyAlbum album;
 
     @SerializedName("duration_ms")
     public int duration;

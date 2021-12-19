@@ -2,7 +2,7 @@
 
 package nl.th7mo.trackshop.api.spotify.playlist;
 
-public class Artist {
+public class SpotifyItem {
 
-    public String name;
+    public SpotifyTrack track;
 }

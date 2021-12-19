@@ -4,7 +4,7 @@ package nl.th7mo.trackshop.api.spotify.playlist;
 
 import java.util.List;
 
-public class Tracks {
+public class SpotifyAlbum {
 
-    public List<Item> items;
+    public List<SpotifyArtist> artists;
 }
