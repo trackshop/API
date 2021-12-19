@@ -17,14 +17,14 @@ public final class AccessTokenDAO {
     private static WebClient httpClient;
 
     public static AccessToken get() {
-        buildWebClient();
+        buildHttpClient();
         RequestHeadersSpec<?> request = buildRequest();
         String responseJson = receiveResponse(request);
 
         return mapToAccessToken(responseJson);
     }
 
-    private static void buildWebClient() {
+    private static void buildHttpClient() {
         String baseURL = DotenvAdapter.get("API_BASE_URL");
         httpClient = WebClient.create(baseURL);
     }
