@@ -12,9 +12,15 @@ public class TrackTranslator {
         track.setName(spotifyTrack.name);
         track.setArtistName(spotifyTrack.getArtistNames().get(0));
         track.setDuration(spotifyTrack.duration);
-        track.setPrice(Math.round(Math.random() * 2));
+        track.setPrice(getRandomPrice(2, 5));
         track.setCoverImageUrl(spotifyTrack.album.images.get(0).url);
 
         return track;
+    }
+
+    private static double getRandomPrice(int minPrice, int maxPrice) {
+        double number = Math.random() * (maxPrice - minPrice);
+
+        return Math.round((minPrice + number) * 100) / 100.0;
     }
 }

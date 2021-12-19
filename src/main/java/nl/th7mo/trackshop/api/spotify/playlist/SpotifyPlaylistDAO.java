@@ -12,9 +12,6 @@ import com.google.gson.Gson;
 
 import org.springframework.stereotype.Service;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 @Service
 public final class SpotifyPlaylistDAO {
 
@@ -56,7 +53,6 @@ public final class SpotifyPlaylistDAO {
     }
 
     private static SpotifyPlaylist mapToPlaylist(String responseJson) {
-        Logger.getLogger("f").log(Level.WARNING, responseJson);
         return new Gson().fromJson(responseJson, SpotifyPlaylist.class);
     }
 }
