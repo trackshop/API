@@ -6,6 +6,7 @@ import java.util.List;
 
 public class SpotifyPlaylist {
 
+    public String id;
     public String name;
     private SpotifyTracks tracks;
 

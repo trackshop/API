@@ -9,7 +9,6 @@ import java.util.List;
 public class SpotifyTrack {
 
     public String id;
-    public List<SpotifyImage> images;
 
     public String name;
     public SpotifyAlbum album;
