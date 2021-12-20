@@ -1,6 +1,6 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.playlist;
+package nl.th7mo.trackshop.api.track;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

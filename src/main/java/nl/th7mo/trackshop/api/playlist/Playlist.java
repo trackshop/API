@@ -2,6 +2,8 @@
 
 package nl.th7mo.trackshop.api.playlist;
 
+import nl.th7mo.trackshop.api.track.Track;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
