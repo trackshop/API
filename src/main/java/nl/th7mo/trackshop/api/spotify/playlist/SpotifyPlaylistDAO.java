@@ -6,18 +6,17 @@ import nl.th7mo.trackshop.api.spotify.access_token.AccessTokenDAO;
 
 import nl.th7mo.trackshop.api.util.DotenvAdapter;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.google.gson.Gson;
 
-import org.springframework.stereotype.Service;
+@Component
+public final class SpotifyPlaylistDAO {
 
-@Service
-public final class PlaylistDAO {
+    private WebClient httpClient;
 
-    private static WebClient httpClient;
-
-    public static SpotifyPlaylist get(String id) {
+    public SpotifyPlaylist get(String id) {
         buildHttpClient();
         WebClient.RequestHeadersSpec<?> request = buildRequest(id);
         String responseJson = receiveResponse(request);
@@ -25,14 +24,14 @@ public final class PlaylistDAO {
         return mapToPlaylist(responseJson);
     }
 
-    private static void buildHttpClient() {
+    private void buildHttpClient() {
         String baseURL = DotenvAdapter.get("API_PLAYLIST_URL");
         httpClient = WebClient.create(baseURL);
     }
 
-    private static WebClient.RequestHeadersSpec<?> buildRequest(String id) {
-        String fields = "name,tracks(items(track(album(artists,id,images)," +
-                        "duration_ms,name)))";
+    private WebClient.RequestHeadersSpec<?> buildRequest(String id) {
+        String fields = "id,name,tracks(items(track(album(artists,images)," +
+                        "duration_ms,name,id)))";
 
         return httpClient.get()
             .uri(uriBuilder -> uriBuilder
@@ -46,13 +45,13 @@ public final class PlaylistDAO {
             );
     }
 
-    private static String receiveResponse(WebClient.RequestHeadersSpec<?> request) {
+    private String receiveResponse(WebClient.RequestHeadersSpec<?> request) {
         return request.retrieve()
             .bodyToMono(String.class)
             .block();
     }
 
-    private static SpotifyPlaylist mapToPlaylist(String responseJson) {
+    private SpotifyPlaylist mapToPlaylist(String responseJson) {
         return new Gson().fromJson(responseJson, SpotifyPlaylist.class);
     }
 }
