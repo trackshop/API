@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 @Component
-public class TrackDAO {
+public final class TrackDAO {
 
     private final TrackRepository trackRepository;
 

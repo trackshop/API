@@ -3,6 +3,7 @@
 package nl.th7mo.trackshop.api.spotify.access_token;
 
 import nl.th7mo.trackshop.api.util.DotenvAdapter;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
@@ -19,4 +20,3 @@ final class CredentialEncoder {
         return encoder.encodeToString(clientCredentials.getBytes());
     }
 }
-// tracks(items(track(album(artists,id,images),duration_ms,name)))

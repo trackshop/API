@@ -9,7 +9,7 @@ import nl.th7mo.trackshop.api.util.RandomNumberGenerator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class TrackTranslator {
+public final class TrackTranslator {
 
     public static Track map(SpotifyTrack spotifyTrack) {
         Track track = new Track();
