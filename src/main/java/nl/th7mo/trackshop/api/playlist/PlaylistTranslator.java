@@ -3,6 +3,8 @@
 package nl.th7mo.trackshop.api.playlist;
 
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylist;
+import nl.th7mo.trackshop.api.track.Track;
+import nl.th7mo.trackshop.api.track.TrackTranslator;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

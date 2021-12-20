@@ -1,7 +1,8 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.playlist;
+package nl.th7mo.trackshop.api.track;
 
+import nl.th7mo.trackshop.api.playlist.Playlist;
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyTrack;
 import nl.th7mo.trackshop.api.util.RandomNumberGenerator;
 
