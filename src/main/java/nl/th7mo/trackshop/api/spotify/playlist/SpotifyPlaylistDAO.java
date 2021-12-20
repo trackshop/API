@@ -6,18 +6,17 @@ import nl.th7mo.trackshop.api.spotify.access_token.AccessTokenDAO;
 
 import nl.th7mo.trackshop.api.util.DotenvAdapter;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.google.gson.Gson;
 
-import org.springframework.stereotype.Service;
-
-@Service
+@Component
 public final class SpotifyPlaylistDAO {
 
-    private static WebClient httpClient;
+    private WebClient httpClient;
 
-    public static SpotifyPlaylist get(String id) {
+    public SpotifyPlaylist get(String id) {
         buildHttpClient();
         WebClient.RequestHeadersSpec<?> request = buildRequest(id);
         String responseJson = receiveResponse(request);
@@ -25,12 +24,12 @@ public final class SpotifyPlaylistDAO {
         return mapToPlaylist(responseJson);
     }
 
-    private static void buildHttpClient() {
+    private void buildHttpClient() {
         String baseURL = DotenvAdapter.get("API_PLAYLIST_URL");
         httpClient = WebClient.create(baseURL);
     }
 
-    private static WebClient.RequestHeadersSpec<?> buildRequest(String id) {
+    private WebClient.RequestHeadersSpec<?> buildRequest(String id) {
         String fields = "id,name,tracks(items(track(album(artists,images)," +
                         "duration_ms,name,id)))";
 
@@ -46,13 +45,13 @@ public final class SpotifyPlaylistDAO {
             );
     }
 
-    private static String receiveResponse(WebClient.RequestHeadersSpec<?> request) {
+    private String receiveResponse(WebClient.RequestHeadersSpec<?> request) {
         return request.retrieve()
             .bodyToMono(String.class)
             .block();
     }
 
-    private static SpotifyPlaylist mapToPlaylist(String responseJson) {
+    private SpotifyPlaylist mapToPlaylist(String responseJson) {
         return new Gson().fromJson(responseJson, SpotifyPlaylist.class);
     }
 }

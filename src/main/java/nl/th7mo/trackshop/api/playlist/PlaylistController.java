@@ -2,36 +2,31 @@
 
 package nl.th7mo.trackshop.api.playlist;
 
-import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylist;
-import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylistDAO;
-import nl.th7mo.trackshop.api.spotify.playlist.SpotifyTrack;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
+@RequestMapping("/playlist")
 public class PlaylistController {
 
-    private final PlaylistDAO playlistDAO;
+    private final PlaylistService playlistService;
 
     @Autowired
-    public PlaylistController(PlaylistDAO playlistDAO) {
-        List<Track> tracks = new ArrayList<>();
-        this.playlistDAO = playlistDAO;
-        SpotifyPlaylist spotifyPlaylist = SpotifyPlaylistDAO.get("4MWtutmJdwJLX8p1SsTQal");
-        for (SpotifyTrack track : spotifyPlaylist.getTracks()) {
-            tracks.add(TrackTranslator.map(track));
-        }
-
-        Playlist playlist = PlaylistTranslator.map(spotifyPlaylist);
-
-        for (Track track : tracks) {
-            track.setPlaylist(playlist);
-        }
-
-        playlist.setTracks(tracks);
-        playlistDAO.savePlaylist(playlist);
+    public PlaylistController(PlaylistService playlistService) {
+        this.playlistService = playlistService;
+        post("2CLV0KGCl0UwTvipE4Ibss");
     }
+
+    @PostMapping
+    public void post(String spotifyPlaylistId) {
+        playlistService.post(spotifyPlaylistId);
+    }
+
+//    @GetMapping
+//    public Playlist getPlaylist() {
+//
+//    }
 }
