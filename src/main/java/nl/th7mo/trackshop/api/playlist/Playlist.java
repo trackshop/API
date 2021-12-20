@@ -4,11 +4,12 @@ package nl.th7mo.trackshop.api.playlist;
 
 import nl.th7mo.trackshop.api.track.Track;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.CascadeType;
+
 import java.util.HashSet;
 import java.util.Set;
 

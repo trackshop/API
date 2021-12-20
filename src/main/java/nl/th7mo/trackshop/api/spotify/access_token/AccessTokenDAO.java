@@ -39,19 +39,19 @@ public final class AccessTokenDAO {
             .uri(tokenURL)
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .header(
-                    "Authorization",
-                    "Basic " + CredentialEncoder.encodeBase64()
+                "Authorization",
+                "Basic " + CredentialEncoder.encodeBase64()
             )
             .body(BodyInserters.fromFormData(
-                    "grant_type",
-                    "client_credentials")
+                "grant_type",
+                "client_credentials")
             );
     }
 
     private static String receiveResponse(RequestHeadersSpec<?> request) {
         return request.retrieve()
-                .bodyToMono(String.class)
-                .block();
+            .bodyToMono(String.class)
+            .block();
     }
 
     private static AccessToken mapToAccessToken(String responseJson) {
