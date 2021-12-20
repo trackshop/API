@@ -3,6 +3,10 @@
 package nl.th7mo.trackshop.api.playlist;
 
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyTrack;
+import nl.th7mo.trackshop.api.util.RandomNumberGenerator;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TrackTranslator {
 
@@ -12,15 +16,21 @@ public class TrackTranslator {
         track.setName(spotifyTrack.name);
         track.setArtistName(spotifyTrack.getArtistNames().get(0));
         track.setDuration(spotifyTrack.duration);
-        track.setPrice(getRandomPrice(2, 5));
+        track.setPrice(RandomNumberGenerator.getRandomPrice(2, 5));
         track.setCoverImageUrl(spotifyTrack.album.images.get(0).url);
 
         return track;
     }
 
-    private static double getRandomPrice(int minPrice, int maxPrice) {
-        double number = Math.random() * (maxPrice - minPrice);
+    public static Set<Track> addPlaylistReference(Set<Track> tracks, Playlist playlist) {
+        return tracks.stream().map(
+            track -> addPlaylistReference(track, playlist)
+        ).collect(Collectors.toSet());
+    }
 
-        return Math.round((minPrice + number) * 100) / 100.0;
+    public static Track addPlaylistReference(Track track, Playlist playlist) {
+        track.setPlaylist(playlist);
+
+        return track;
     }
 }

@@ -7,7 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -21,7 +22,7 @@ public class Playlist {
     private String coverImageUrl;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "playlist")
-    private List<Track> tracks;
+    private Set<Track> tracks = new HashSet<>();
 
     public String getId() {
         return id;
@@ -55,11 +56,11 @@ public class Playlist {
         this.coverImageUrl = coverImageUrl;
     }
 
-    public List<Track> getTracks() {
+    public Set<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<Track> tracks) {
+    public void setTracks(Set<Track> tracks) {
         this.tracks = tracks;
     }
 }

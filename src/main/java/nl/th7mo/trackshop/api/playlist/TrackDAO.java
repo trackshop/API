@@ -5,7 +5,7 @@ package nl.th7mo.trackshop.api.playlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Set;
 
 @Component
 public class TrackDAO {
@@ -17,7 +17,7 @@ public class TrackDAO {
         this.trackRepository = trackRepository;
     }
 
-    public void post(List<Track> tracks) {
+    public void post(Set<Track> tracks) {
         trackRepository.saveAll(tracks);
     }
 
