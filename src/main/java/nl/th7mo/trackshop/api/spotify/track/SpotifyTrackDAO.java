@@ -5,8 +5,6 @@ package nl.th7mo.trackshop.api.spotify.track;
 import nl.th7mo.trackshop.api.spotify.access_token.AccessTokenDAO;
 
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylistResponseSpecBuilder;
-import nl.th7mo.trackshop.api.spotify.playlist.SpotifyTrack;
-import nl.th7mo.trackshop.api.spotify.playlist.SpotifyTracks;
 import nl.th7mo.trackshop.api.util.DotenvAdapter;
 
 import org.springframework.stereotype.Component;
