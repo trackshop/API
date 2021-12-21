@@ -2,7 +2,7 @@
 
 package nl.th7mo.trackshop.api.spotify.track;
 
-public class SpotifyImage {
+public class SpotifyTrackImage {
 
     public String url;
 }

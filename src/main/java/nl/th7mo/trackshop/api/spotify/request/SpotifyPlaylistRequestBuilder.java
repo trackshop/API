@@ -14,7 +14,7 @@ public final class SpotifyPlaylistRequestBuilder {
     public static RequestHeadersSpec<?> build(String id) {
         buildHttpClient();
         String fields = "id,name,tracks(items(track(album(artists,images)," +
-                        "duration_ms,name,id)))";
+                        "duration_ms,name,id))),images";
 
         return httpClient.get()
             .uri(uriBuilder -> uriBuilder
