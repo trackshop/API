@@ -50,11 +50,18 @@ public final class SpotifyPlaylistDAO {
     private Mono<String> receiveResponse(WebClient.RequestHeadersSpec<?> request) {
         return request.retrieve()
             .onStatus(
-                HttpStatus::is4xxClientError,
+                httpStatus -> httpStatus.value() == HttpStatus.NOT_FOUND.value(),
                 response -> Mono.error(
                     new SpotifyPlaylistNotFoundException("Spotify playlist not found")
                 )
             )
+            .onStatus(
+                httpStatus -> httpStatus.value() == HttpStatus.BAD_REQUEST.value(),
+                response -> Mono.error(
+                    new InvalidSpotifyRequestException(
+                        "The server made a bad request to the Spotify API"
+                    )
+                ))
             .bodyToMono(String.class);
     }
 
