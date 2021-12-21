@@ -2,6 +2,7 @@
 
 package nl.th7mo.trackshop.api.track;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import nl.th7mo.trackshop.api.playlist.Playlist;
 
 import javax.persistence.Entity;
@@ -23,7 +24,8 @@ public class Track {
     private double price;
     private String coverImageUrl;
 
-    @ManyToOne()
+    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
 
