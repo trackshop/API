@@ -17,7 +17,7 @@ public final class PlaylistTranslator {
         playlist.setId(spotifyPlaylist.id);
         playlist.setName(spotifyPlaylist.name);
         playlist.setSize(spotifyPlaylist.getTracks().size());
-        playlist.setCoverImageUrl("");
+        playlist.setCoverImageUrl(spotifyPlaylist.images.get(0).url);
 
         return addReferences(playlist, spotifyPlaylist);
     }
