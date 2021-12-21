@@ -2,6 +2,8 @@
 
 package nl.th7mo.trackshop.api.playlist;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,9 +27,12 @@ public class PlaylistController {
         this.playlistService = playlistService;
     }
 
+    @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping
-    public void post(@RequestParam String id) {
+    public String post(@RequestParam String id) {
         playlistService.post(id);
+
+        return "Spotify playlist with id '" + id + "' is inserted";
     }
 
     @GetMapping
