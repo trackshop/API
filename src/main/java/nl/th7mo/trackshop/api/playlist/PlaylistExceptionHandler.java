@@ -18,6 +18,5 @@ public class PlaylistExceptionHandler {
                 "the playlist is private"
     )
     @ExceptionHandler(SpotifyPlaylistNotFoundException.class)
-    public void handleException(SpotifyPlaylistNotFoundException e) {
-    }
+    public void handleException(SpotifyPlaylistNotFoundException e) {}
 }
