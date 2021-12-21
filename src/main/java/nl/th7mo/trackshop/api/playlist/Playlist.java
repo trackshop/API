@@ -2,7 +2,9 @@
 
 package nl.th7mo.trackshop.api.playlist;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import nl.th7mo.trackshop.api.track.Track;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Table;
 import javax.persistence.Entity;
@@ -24,6 +26,7 @@ public class Playlist {
     private int size;
     private String coverImageUrl;
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "playlist")
     private Set<Track> tracks = new HashSet<>();
 
