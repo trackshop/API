@@ -19,4 +19,11 @@ public class PlaylistExceptionHandler {
     )
     @ExceptionHandler(SpotifyPlaylistNotFoundException.class)
     public void handleException(SpotifyPlaylistNotFoundException e) {}
+
+    @ResponseStatus(
+        value = HttpStatus.NOT_FOUND,
+        reason = "There was no playlist found with the given playlist id"
+    )
+    @ExceptionHandler(PlaylistNotFoundException.class)
+    public void handleException(PlaylistNotFoundException e) {}
 }

@@ -3,7 +3,10 @@
 package nl.th7mo.trackshop.api.playlist;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,5 +41,12 @@ public class PlaylistController {
     @GetMapping
     public List<Playlist> get() {
         return playlistService.get();
+    }
+
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id)
+    throws PlaylistNotFoundException {
+        playlistService.delete(id);
     }
 }
