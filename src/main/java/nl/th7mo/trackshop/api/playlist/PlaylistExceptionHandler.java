@@ -2,6 +2,7 @@
 
 package nl.th7mo.trackshop.api.playlist;
 
+import nl.th7mo.trackshop.api.spotify.playlist.InvalidSpotifyRequestException;
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylistNotFoundException;
 
 import org.springframework.http.HttpStatus;
@@ -26,4 +27,11 @@ public class PlaylistExceptionHandler {
     )
     @ExceptionHandler(PlaylistNotFoundException.class)
     public void handleException(PlaylistNotFoundException e) {}
+
+    @ResponseStatus(
+        value = HttpStatus.INTERNAL_SERVER_ERROR,
+        reason = "The server made a bad request to the Spotify API"
+    )
+    @ExceptionHandler(InvalidSpotifyRequestException.class)
+    public void handleException(InvalidSpotifyRequestException e) {}
 }
