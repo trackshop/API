@@ -14,7 +14,7 @@ public class SpotifyPlaylist {
         return tracks.items.stream().map(item -> item.track).toList();
     }
 
-    private void setTracks(SpotifyTracks tracks) {
+    public void setTracks(SpotifyTracks tracks) {
         this.tracks = tracks;
     }
 }
