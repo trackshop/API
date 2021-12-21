@@ -43,4 +43,9 @@ public class PlaylistService {
     public List<Playlist> get() {
         return playlistDAO.get();
     }
+
+    public void delete(String spotifyPlaylistId)
+    throws PlaylistNotFoundException {
+        playlistDAO.delete(spotifyPlaylistId);
+    }
 }

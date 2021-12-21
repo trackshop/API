@@ -4,6 +4,7 @@ package nl.th7mo.trackshop.api.playlist;
 
 import nl.th7mo.trackshop.api.track.TrackDAO;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,5 +29,16 @@ public class PlaylistDAO {
 
     public List<Playlist> get() {
         return playlistRepository.findAll();
+    }
+
+    public void delete(String spotifyPlaylistId)
+    throws PlaylistNotFoundException {
+        try {
+            playlistRepository.deleteById(spotifyPlaylistId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new PlaylistNotFoundException(
+                "Playlist with id '" + spotifyPlaylistId + "' is not found"
+            );
+        }
     }
 }
