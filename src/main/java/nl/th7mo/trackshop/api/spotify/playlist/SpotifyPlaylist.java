@@ -2,6 +2,9 @@
 
 package nl.th7mo.trackshop.api.spotify.playlist;
 
+import nl.th7mo.trackshop.api.spotify.track.SpotifyTrack;
+import nl.th7mo.trackshop.api.spotify.track.SpotifyTracks;
+
 import java.util.List;
 
 public class SpotifyPlaylist {
