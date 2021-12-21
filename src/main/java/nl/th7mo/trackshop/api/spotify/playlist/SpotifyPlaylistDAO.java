@@ -8,8 +8,10 @@ import nl.th7mo.trackshop.api.util.DotenvAdapter;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
 import com.google.gson.Gson;
+import reactor.core.publisher.Mono;
 
 @Component
 public final class SpotifyPlaylistDAO {
@@ -19,7 +21,7 @@ public final class SpotifyPlaylistDAO {
     public SpotifyPlaylist get(String id) {
         buildHttpClient();
         WebClient.RequestHeadersSpec<?> request = buildRequest(id);
-        String responseJson = receiveResponse(request);
+        String responseJson = receiveResponse(request).block();
 
         return mapToPlaylist(responseJson);
     }
@@ -45,10 +47,10 @@ public final class SpotifyPlaylistDAO {
             );
     }
 
-    private String receiveResponse(WebClient.RequestHeadersSpec<?> request) {
-        return request.retrieve()
-            .bodyToMono(String.class)
-            .block();
+    private Mono<String> receiveResponse(WebClient.RequestHeadersSpec<?> request) {
+        ResponseSpec response = request.retrieve();
+        return SpotifyPlaylistResponseSpecBuilder.buildConstraints(response)
+            .bodyToMono(String.class);
     }
 
     private SpotifyPlaylist mapToPlaylist(String responseJson) {
