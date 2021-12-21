@@ -6,9 +6,9 @@ import nl.th7mo.trackshop.api.spotify.access_token.AccessTokenDAO;
 
 import nl.th7mo.trackshop.api.util.DotenvAdapter;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
 import com.google.gson.Gson;
 import reactor.core.publisher.Mono;
@@ -48,20 +48,8 @@ public final class SpotifyPlaylistDAO {
     }
 
     private Mono<String> receiveResponse(WebClient.RequestHeadersSpec<?> request) {
-        return request.retrieve()
-            .onStatus(
-                httpStatus -> httpStatus.value() == HttpStatus.NOT_FOUND.value(),
-                response -> Mono.error(
-                    new SpotifyPlaylistNotFoundException("Spotify playlist not found")
-                )
-            )
-            .onStatus(
-                httpStatus -> httpStatus.value() == HttpStatus.BAD_REQUEST.value(),
-                response -> Mono.error(
-                    new InvalidSpotifyRequestException(
-                        "The server made a bad request to the Spotify API"
-                    )
-                ))
+        ResponseSpec response = request.retrieve();
+        return SpotifyPlaylistResponseSpecBuilder.buildConstraints(response)
             .bodyToMono(String.class);
     }
 
