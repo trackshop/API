@@ -11,5 +11,6 @@ public class SpotifyTracks {
 
     public void concat(SpotifyTracks tracks) {
         items.addAll(tracks.items);
+        next = tracks.next;
     }
 }
