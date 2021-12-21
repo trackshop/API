@@ -7,5 +7,5 @@ import java.util.List;
 public class SpotifyAlbum {
 
     public List<SpotifyArtist> artists;
-    public List<SpotifyImage> images;
+    public List<SpotifyTrackImage> images;
 }

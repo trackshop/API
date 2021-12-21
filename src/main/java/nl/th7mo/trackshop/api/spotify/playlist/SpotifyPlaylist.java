@@ -12,6 +12,7 @@ public class SpotifyPlaylist {
     public String id;
     public String name;
     private SpotifyTracks tracks;
+    public List<SpotifyPlaylistImage> images;
 
     public List<SpotifyTrack> getTracks() {
         return tracks.items.stream().map(item -> item.track).toList();

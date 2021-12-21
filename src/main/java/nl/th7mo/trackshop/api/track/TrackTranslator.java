@@ -17,7 +17,7 @@ public final class TrackTranslator {
         track.setName(spotifyTrack.name);
         track.setArtistName(spotifyTrack.getArtistNames().get(0));
         track.setDuration(spotifyTrack.duration);
-        track.setPrice(RandomNumberGenerator.getRandomPrice(2, 5));
+        track.setPrice(RandomNumberGenerator.getRandomNumber(2, 5));
         track.setCoverImageUrl(spotifyTrack.album.images.get(0).url);
 
         return track;
