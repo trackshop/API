@@ -58,10 +58,10 @@
             <version>2.8.9</version>
         </dependency>
 
-        <dependency> <!-- authentication & authorisation -->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+<!--        <dependency> &lt;!&ndash; authentication & authorisation &ndash;&gt;-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
 
         <dependency> <!-- authentication & authorisation -->
             <groupId>io.jsonwebtoken</groupId>
