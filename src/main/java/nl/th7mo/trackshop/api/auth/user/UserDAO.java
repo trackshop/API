@@ -3,6 +3,7 @@
 package nl.th7mo.trackshop.api.auth.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,8 +13,11 @@ import java.util.List;
 public class UserDAO {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public void post(AppUser user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         userRepository.save(user);
     }
 
