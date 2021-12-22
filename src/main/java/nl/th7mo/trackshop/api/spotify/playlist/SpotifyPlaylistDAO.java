@@ -2,10 +2,9 @@
 
 package nl.th7mo.trackshop.api.spotify.playlist;
 
-import nl.th7mo.trackshop.api.spotify.request.SpotifyPlaylistRequestBuilder;
+import lombok.RequiredArgsConstructor;
 import nl.th7mo.trackshop.api.spotify.track.SpotifyTrackDAO;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
@@ -15,14 +14,10 @@ import com.google.gson.Gson;
 import reactor.core.publisher.Mono;
 
 @Component
+@RequiredArgsConstructor
 public final class SpotifyPlaylistDAO {
 
     private final SpotifyTrackDAO trackDAO;
-
-    @Autowired
-    public SpotifyPlaylistDAO(SpotifyTrackDAO trackDAO) {
-        this.trackDAO = trackDAO;
-    }
 
     public SpotifyPlaylist get(String id) {
         RequestHeadersSpec<?> request = SpotifyPlaylistRequestBuilder.build(id);
