@@ -1,6 +1,6 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth;
+package nl.th7mo.trackshop.api.auth.role;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

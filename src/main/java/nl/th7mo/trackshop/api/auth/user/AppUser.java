@@ -1,16 +1,16 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth;
+package nl.th7mo.trackshop.api.auth.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nl.th7mo.trackshop.api.auth.role.Role;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,10 +20,9 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class AppUser {
 
     @Id
-    @Transient
     private UUID id = UUID.randomUUID();
 
     private String emailAddress;
