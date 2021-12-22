@@ -2,10 +2,12 @@
 
 package nl.th7mo.trackshop.api.playlist;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
 import nl.th7mo.trackshop.api.track.Track;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -25,6 +27,7 @@ public class Playlist {
     private int size;
     private String coverImageUrl;
 
+    @EqualsAndHashCode.Exclude
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "playlist")
     private Set<Track> tracks = new HashSet<>();

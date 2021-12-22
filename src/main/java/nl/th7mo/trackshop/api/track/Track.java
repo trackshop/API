@@ -1,6 +1,7 @@
 // XII·IX <> VII·X
 
 package nl.th7mo.trackshop.api.track;
+import lombok.EqualsAndHashCode;
 import nl.th7mo.trackshop.api.playlist.Playlist;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -24,6 +25,7 @@ public class Track {
     private double price;
     private String coverImageUrl;
 
+    @EqualsAndHashCode.Exclude
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "playlist_id")
