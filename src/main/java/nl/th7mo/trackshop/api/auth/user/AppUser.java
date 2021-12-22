@@ -2,9 +2,7 @@
 
 package nl.th7mo.trackshop.api.auth.user;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import nl.th7mo.trackshop.api.auth.role.Role;
 
 import javax.persistence.Entity;
@@ -18,8 +16,6 @@ import java.util.UUID;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class AppUser {
 
     @Id

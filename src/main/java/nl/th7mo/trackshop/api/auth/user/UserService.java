@@ -8,10 +8,12 @@ import nl.th7mo.trackshop.api.auth.role.RoleDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserDAO userDAO;
@@ -30,6 +32,7 @@ public class UserService {
         Role role = roleDAO.getByName(roleName);
 
         user.getRoles().add(role);
+        System.out.println("F_FEWKFEFEMFIMEWIOFNEWIF " + user.getRoles().toString());
     }
 
     public AppUser get(String emailAddress) {
