@@ -6,18 +6,55 @@ import nl.th7mo.trackshop.api.auth.role.Role;
 import nl.th7mo.trackshop.api.auth.role.RoleDAO;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserDAO userDAO;
     private final RoleDAO roleDAO;
+
+    @Override
+    public UserDetails loadUserByUsername(String username)
+    throws UsernameNotFoundException {
+        AppUser user = userDAO.get(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(
+                "User '" + username + "' not found in database"
+            );
+        }
+
+        return new User(
+            user.getEmailAddress(),
+            user.getPassword(),
+            getAuthorities(user)
+        );
+    }
+
+    private Collection<SimpleGrantedAuthority> getAuthorities(AppUser user) {
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        user.getRoles().forEach(
+            role -> authorities.add(
+                new SimpleGrantedAuthority(role.getName())
+            )
+        );
+
+        return authorities;
+    }
 
     public void post(AppUser user) {
         userDAO.post(user);
