@@ -25,7 +25,7 @@ public class PlaylistService {
         post(PlaylistTranslator.map(spotifyPlaylist));
     }
 
-    private void post(Playlist playlist) {
+    public void post(Playlist playlist) {
         playlistDAO.post(playlist);
         trackDAO.post(playlist.getTracks());
     }
