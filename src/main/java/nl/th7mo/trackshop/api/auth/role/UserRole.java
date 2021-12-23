@@ -2,9 +2,11 @@
 
 package nl.th7mo.trackshop.api.auth.role;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserRole {
 
     private String emailAddress;

@@ -2,14 +2,17 @@
 
 package nl.th7mo.trackshop.api.auth.role;
 
-import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
-@Data
+@Getter
+@Setter
 public class Role {
 
     @Id

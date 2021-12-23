@@ -37,10 +37,10 @@ public class JwtTokenBuilder {
 
     private static void setResponseBody(String accessToken)
         throws IOException {
-        Map<String, String> JwtTokens = new HashMap<>();
-        JwtTokens.put("access_token", accessToken);
+        Map<String, String> responseBody = new HashMap<>();
+        responseBody.put("access_token", accessToken);
         response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), JwtTokens);
+        new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
     }
 
     private static String buildAccessToken(User loggedInUser, int expireDuration) {
