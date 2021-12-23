@@ -2,9 +2,10 @@
 
 package nl.th7mo.trackshop.api.auth.user;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 

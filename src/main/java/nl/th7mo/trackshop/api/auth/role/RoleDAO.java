@@ -2,8 +2,9 @@
 
 package nl.th7mo.trackshop.api.auth.role;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
