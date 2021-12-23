@@ -4,7 +4,6 @@ package nl.th7mo.trackshop.api.auth.user;
 
 import nl.th7mo.trackshop.api.auth.role.Role;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
