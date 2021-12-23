@@ -2,11 +2,12 @@
 
 package nl.th7mo.trackshop.api.playlist;
 
-import lombok.RequiredArgsConstructor;
 import nl.th7mo.trackshop.api.track.TrackDAO;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
