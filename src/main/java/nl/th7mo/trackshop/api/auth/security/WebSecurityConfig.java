@@ -37,8 +37,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         securitySettings.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         EndpointSecuritySettings.setEndpointConstraints(securitySettings);
         securitySettings.authorizeRequests().anyRequest().authenticated();
-        securitySettings.addFilter(new AuthenticationFilter(authenticationManager()));
-        securitySettings.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        addFilters(securitySettings);
+    }
+
+    private void addFilters(HttpSecurity securitySettings) throws Exception {
+        securitySettings.addFilter(
+            new AuthenticationFilter(authenticationManager())
+        );
+        securitySettings.addFilterBefore(
+            new AuthorizationFilter(),
+            UsernamePasswordAuthenticationFilter.class
+        );
     }
 
     @Bean

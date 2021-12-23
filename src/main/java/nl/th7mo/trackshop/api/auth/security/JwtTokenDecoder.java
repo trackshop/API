@@ -8,7 +8,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import static java.util.Arrays.stream;
@@ -25,13 +24,9 @@ public final class JwtTokenDecoder {
     }
 
     public static Collection<SimpleGrantedAuthority> getAuthoritiesOfUser() {
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
-        stream(roles).forEach(
-            role -> authorities.add(new SimpleGrantedAuthority(role))
-        );
 
-        return authorities;
+        return stream(roles).map(SimpleGrantedAuthority::new).toList();
     }
 
     public static String getUserEmailAddress() {
