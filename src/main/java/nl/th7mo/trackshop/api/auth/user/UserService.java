@@ -14,9 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -45,15 +45,10 @@ public class UserService implements UserDetailsService {
     }
 
     private Collection<SimpleGrantedAuthority> getAuthorities(AppUser user) {
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        Collection<Role> roles = user.getRoles();
+        List<String> roleNames = roles.stream().map(Role::getName).toList();
 
-        user.getRoles().forEach(
-            role -> authorities.add(
-                new SimpleGrantedAuthority(role.getName())
-            )
-        );
-
-        return authorities;
+        return roleNames.stream().map(SimpleGrantedAuthority::new).toList();
     }
 
     public void post(AppUser user) {
@@ -69,7 +64,6 @@ public class UserService implements UserDetailsService {
         Role role = roleDAO.getByName(roleName);
 
         user.getRoles().add(role);
-        System.out.println("F_FEWKFEFEMFIMEWIOFNEWIF " + user.getRoles().toString());
     }
 
     public AppUser get(String emailAddress) {
