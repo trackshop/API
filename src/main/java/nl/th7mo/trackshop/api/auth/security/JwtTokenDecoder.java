@@ -2,12 +2,13 @@
 
 package nl.th7mo.trackshop.api.auth.security;
 
+import nl.th7mo.trackshop.api.util.DotenvAdapter;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-import nl.th7mo.trackshop.api.util.DotenvAdapter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;

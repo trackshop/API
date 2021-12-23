@@ -2,13 +2,13 @@
 
 package nl.th7mo.trackshop.api.playlist;
 
-import lombok.RequiredArgsConstructor;
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylist;
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylistDAO;
-
 import nl.th7mo.trackshop.api.track.TrackDAO;
 
 import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 

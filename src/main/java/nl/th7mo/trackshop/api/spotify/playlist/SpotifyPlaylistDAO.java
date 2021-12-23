@@ -2,7 +2,6 @@
 
 package nl.th7mo.trackshop.api.spotify.playlist;
 
-import lombok.RequiredArgsConstructor;
 import nl.th7mo.trackshop.api.spotify.track.SpotifyTrackDAO;
 
 import org.springframework.stereotype.Component;
@@ -12,6 +11,8 @@ import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
 import com.google.gson.Gson;
 import reactor.core.publisher.Mono;
+
+import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
