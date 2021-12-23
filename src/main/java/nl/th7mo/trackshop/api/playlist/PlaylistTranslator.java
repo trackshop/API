@@ -2,10 +2,9 @@
 
 package nl.th7mo.trackshop.api.playlist;
 
-import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylist;
-
 import nl.th7mo.trackshop.api.track.Track;
 import nl.th7mo.trackshop.api.track.TrackTranslator;
+import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylist;
 
 import java.util.List;
 

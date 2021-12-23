@@ -2,16 +2,19 @@
 
 package nl.th7mo.trackshop.api.auth.security;
 
+import nl.th7mo.trackshop.api.util.DotenvAdapter;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import nl.th7mo.trackshop.api.util.DotenvAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 import java.util.Date;

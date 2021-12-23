@@ -5,16 +5,16 @@ package nl.th7mo.trackshop.api.playlist;
 import nl.th7mo.trackshop.api.track.Track;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Getter
