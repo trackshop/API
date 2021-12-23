@@ -7,8 +7,7 @@ import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylist;
 import nl.th7mo.trackshop.api.track.Track;
 import nl.th7mo.trackshop.api.track.TrackTranslator;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public final class PlaylistTranslator {
 
@@ -18,25 +17,15 @@ public final class PlaylistTranslator {
         playlist.setName(spotifyPlaylist.name);
         playlist.setSize(spotifyPlaylist.getTracks().size());
         playlist.setCoverImageUrl(spotifyPlaylist.images.get(0).url);
-
-        return addReferences(playlist, spotifyPlaylist);
-    }
-
-    private static Playlist addReferences(
-        Playlist playlist,
-        SpotifyPlaylist spotifyPlaylist
-    ) {
-        Set<Track> tracks = getTracks(spotifyPlaylist);
-        tracks = TrackTranslator.addPlaylistReference(tracks, playlist);
-        playlist.setTracks(tracks);
+        playlist.setTracks(getTracks(spotifyPlaylist));
 
         return playlist;
     }
 
-    private static Set<Track> getTracks(SpotifyPlaylist spotifyPlaylist) {
+    private static List<Track> getTracks(SpotifyPlaylist spotifyPlaylist) {
         return spotifyPlaylist.getTracks()
             .stream()
             .map(TrackTranslator::map)
-            .collect(Collectors.toSet());
+            .toList();
     }
 }
