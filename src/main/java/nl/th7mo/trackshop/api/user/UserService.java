@@ -1,9 +1,9 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth.user;
+package nl.th7mo.trackshop.api.user;
 
-import nl.th7mo.trackshop.api.auth.role.Role;
-import nl.th7mo.trackshop.api.auth.role.RoleDAO;
+import nl.th7mo.trackshop.api.role.Role;
+import nl.th7mo.trackshop.api.role.RoleDAO;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -6,6 +6,7 @@ import nl.th7mo.trackshop.api.track.Track;
 import nl.th7mo.trackshop.api.track.TrackTranslator;
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylist;
 
+import java.util.HashSet;
 import java.util.List;
 
 public final class PlaylistTranslator {
@@ -16,7 +17,7 @@ public final class PlaylistTranslator {
         playlist.setName(spotifyPlaylist.name);
         playlist.setSize(spotifyPlaylist.getTracks().size());
         playlist.setCoverImageUrl(spotifyPlaylist.images.get(0).url);
-        playlist.setTracks(getTracks(spotifyPlaylist));
+        playlist.setTracks(new HashSet<>(getTracks(spotifyPlaylist)));
 
         return playlist;
     }
