@@ -2,20 +2,16 @@
 
 package nl.th7mo.trackshop.api.track;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public final class TrackDAO {
 
     private final TrackRepository trackRepository;
-
-    @Autowired
-    public TrackDAO(TrackRepository trackRepository) {
-        this.trackRepository = trackRepository;
-    }
 
     public void post(List<Track> tracks) {
         trackRepository.saveAll(tracks);
@@ -23,5 +19,9 @@ public final class TrackDAO {
 
     public void post(Track track) {
         trackRepository.save(track);
+    }
+
+    public Track get(String id) {
+        return trackRepository.getById(id);
     }
 }

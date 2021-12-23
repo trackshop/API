@@ -1,6 +1,6 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth.role;
+package nl.th7mo.trackshop.api.role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

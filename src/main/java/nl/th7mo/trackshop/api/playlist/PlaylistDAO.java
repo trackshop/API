@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -20,11 +23,14 @@ public class PlaylistDAO {
 
     public void post(Playlist playlist) {
         playlistRepository.save(playlist);
-        trackDAO.post(playlist.getTracks());
     }
 
-    public List<Playlist> get() {
-        return playlistRepository.findAll();
+    public Set<Playlist> get() {
+        return new HashSet<>(playlistRepository.findAll());
+    }
+
+    public Playlist get(String spotifyPlaylistId) {
+        return playlistRepository.getById(spotifyPlaylistId);
     }
 
     public void delete(String spotifyPlaylistId)

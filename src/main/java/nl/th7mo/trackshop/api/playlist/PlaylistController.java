@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,13 +36,13 @@ public class PlaylistController {
         return "Spotify playlist with id '" + id + "' is inserted";
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public void post(@RequestBody Playlist playlist) {
         playlistService.post(playlist);
     }
 
     @GetMapping
-    public List<Playlist> get() {
+    public Set<Playlist> get() {
         return playlistService.get();
     }
 

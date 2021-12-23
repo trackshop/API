@@ -12,9 +12,11 @@ import javax.persistence.CascadeType;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -28,6 +30,7 @@ public class Playlist {
     private int size;
     private String coverImageUrl;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Track> tracks = new ArrayList<>();
+    private Set<Track> tracks = new HashSet<>();
 }
