@@ -30,17 +30,15 @@ public class JwtTokenBuilder {
     ) throws IOException {
         JwtTokenBuilder.response = response;
         User loggedInUser = (User) authentication.getPrincipal();
-        int oneHourInMilles = 60 * 60 + 1000;
+        int oneHourInMilles = 60 * 60 * 1000;
         String accessToken = buildAccessToken(loggedInUser, oneHourInMilles);
-        String refreshToken = buildAccessToken(loggedInUser, oneHourInMilles * 6);
-        setResponseBody(accessToken, refreshToken);
+        setResponseBody(accessToken);
     }
 
-    private static void setResponseBody(String accessToken, String refreshToken)
+    private static void setResponseBody(String accessToken)
         throws IOException {
         Map<String, String> JwtTokens = new HashMap<>();
         JwtTokens.put("access_token", accessToken);
-        JwtTokens.put("refresh_token", refreshToken);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), JwtTokens);
     }
