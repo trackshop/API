@@ -2,8 +2,8 @@
 
 package nl.th7mo.trackshop.api.util;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public final class LogErrorAdapter {
 

@@ -1,19 +1,16 @@
 // XII·IX <> VII·X
 
 package nl.th7mo.trackshop.api.track;
-import lombok.EqualsAndHashCode;
-import nl.th7mo.trackshop.api.playlist.Playlist;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Track {
 
     @Id
@@ -24,10 +21,4 @@ public class Track {
     private int duration;
     private double price;
     private String coverImageUrl;
-
-    @EqualsAndHashCode.Exclude
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "playlist_id")
-    private Playlist playlist;
 }
