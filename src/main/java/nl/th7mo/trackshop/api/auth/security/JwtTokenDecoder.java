@@ -7,6 +7,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import nl.th7mo.trackshop.api.util.DotenvAdapter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
@@ -19,7 +20,8 @@ public final class JwtTokenDecoder {
 
     public static void decode(String authorizationHeader) {
         String jwtToken = authorizationHeader.substring("Bearer ".length());
-        Algorithm tokenEncryptAlgorithm = Algorithm.HMAC256("secret".getBytes());
+        String jwtTokenSecret = DotenvAdapter.get("JWT_TOKEN_SECRET");
+        Algorithm tokenEncryptAlgorithm = Algorithm.HMAC256(jwtTokenSecret.getBytes());
         JWTVerifier jwtVerifier = JWT.require(tokenEncryptAlgorithm).build();
         JwtTokenDecoder.decodedJWT = jwtVerifier.verify(jwtToken);
     }
