@@ -3,7 +3,6 @@
 package nl.th7mo.trackshop.api.spotify.track;
 
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylistResponseSpecBuilder;
-import nl.th7mo.trackshop.api.spotify.request.SpotifyTrackRequestBuilder;
 
 import org.springframework.stereotype.Component;
 

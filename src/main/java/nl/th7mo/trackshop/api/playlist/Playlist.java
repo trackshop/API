@@ -2,21 +2,24 @@
 
 package nl.th7mo.trackshop.api.playlist;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import nl.th7mo.trackshop.api.track.Track;
-import org.hibernate.annotations.Proxy;
 
-import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table
+@Getter
+@Setter
 public class Playlist {
 
     @Id
@@ -29,44 +32,4 @@ public class Playlist {
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "playlist")
     private Set<Track> tracks = new HashSet<>();
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public String getCoverImageUrl() {
-        return coverImageUrl;
-    }
-
-    public void setCoverImageUrl(String coverImageUrl) {
-        this.coverImageUrl = coverImageUrl;
-    }
-
-    public Set<Track> getTracks() {
-        return tracks;
-    }
-
-    public void setTracks(Set<Track> tracks) {
-        this.tracks = tracks;
-    }
 }
