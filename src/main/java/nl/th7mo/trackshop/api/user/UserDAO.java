@@ -22,12 +22,13 @@ public class UserDAO {
         userRepository.save(user);
     }
 
-    public AppUser get(String emailAddress) {
-        return userRepository.findByEmailAddress(emailAddress);
-    }
-
-    public AppUser getByEmailAddress(String emailAddress) {
-        return userRepository.findByEmailAddress(emailAddress);
+    public AppUser get(String emailAddress) throws UserNotFoundException {
+        return userRepository.findById(emailAddress).orElseThrow(() ->
+            new UserNotFoundException(
+                "User with emailAddress '" + emailAddress +
+                "' could not be found in the database"
+            )
+        );
     }
 
     public List<AppUser> getAll() {
