@@ -30,27 +30,27 @@ public class LikedTracksController {
     @PostMapping("/{trackId}")
     public void post(
         @PathVariable String trackId,
-        Authentication authentication
+        Authentication requestingUser
     ) throws TrackNotFoundException {
-        likedTracksService.post(trackId, authentication.getName());
+        likedTracksService.post(trackId, requestingUser.getName());
     }
 
     @GetMapping
-    public Set<Track> getAll(Authentication authentication) {
-        return likedTracksService.getAll(authentication.getName());
+    public Set<Track> getAll(Authentication requestingUser) {
+        return likedTracksService.getAll(requestingUser.getName());
     }
 
     @DeleteMapping
     @RequestMapping("/{trackId}")
     public void delete(
         @PathVariable String trackId,
-        Authentication authentication
+        Authentication requestingUser
     ) throws TrackNotFoundException {
-        likedTracksService.delete(trackId, authentication.getName());
+        likedTracksService.delete(trackId, requestingUser.getName());
     }
 
     @DeleteMapping
-    public void deleteAll(Authentication authentication) {
-        likedTracksService.deleteAll(authentication.getName());
+    public void deleteAll(Authentication requestingUser) {
+        likedTracksService.deleteAll(requestingUser.getName());
     }
 }

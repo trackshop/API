@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import java.util.Date;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Date;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -29,10 +29,10 @@ public class JwtTokenBuilder {
     private static HttpServletResponse response;
 
     public static void build(
-        HttpServletResponse response,
+        HttpServletResponse loginResponse,
         Authentication authentication
     ) throws IOException {
-        JwtTokenBuilder.response = response;
+        JwtTokenBuilder.response = loginResponse;
         User loggedInUser = (User) authentication.getPrincipal();
         String accessToken = buildAccessToken(loggedInUser);
         setResponseBody(accessToken);
@@ -52,15 +52,15 @@ public class JwtTokenBuilder {
 
         return JWT.create()
             .withSubject(loggedInUser.getUsername())
-            .withExpiresAt(getExpireTime())
+            .withExpiresAt(getJwtTokenExpireDate())
             .withClaim("roles", getAuthoritiesFromLoggedInUser(loggedInUser))
             .sign(tokenEncryptAlgorithm);
     }
 
-    private static Date getExpireTime() {
-        int oneHourInMilles = 60 * 60 * 1000;
+    private static Date getJwtTokenExpireDate() {
+        int oneHourInMilliseconds = 60 * 60 * 1000;
 
-        return new Date(System.currentTimeMillis() + oneHourInMilles);
+        return new Date(System.currentTimeMillis() + oneHourInMilliseconds);
     }
 
     private static List<String> getAuthoritiesFromLoggedInUser(User loggedInUser) {

@@ -24,26 +24,26 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     public Authentication attemptAuthentication(
-        HttpServletRequest request,
-        HttpServletResponse response
+        HttpServletRequest loginRequest,
+        HttpServletResponse loginResponse
     ) throws AuthenticationException {
-        return authenticationManager.authenticate(createAuthToken(request));
+        return authenticationManager.authenticate(createAuthToken(loginRequest));
     }
 
-    private UsernamePasswordAuthenticationToken createAuthToken(HttpServletRequest request) {
-        String emailAddress = request.getParameter("emailAddress");
-        String password = request.getParameter("password");
+    private UsernamePasswordAuthenticationToken createAuthToken(HttpServletRequest loginRequest) {
+        String emailAddress = loginRequest.getParameter("emailAddress");
+        String password = loginRequest.getParameter("password");
 
         return new UsernamePasswordAuthenticationToken(emailAddress, password);
     }
 
     @Override
     protected void successfulAuthentication(
-        HttpServletRequest request,
-        HttpServletResponse response,
-        FilterChain chain,
+        HttpServletRequest loginRequest,
+        HttpServletResponse loginResponse,
+        FilterChain filterChain,
         Authentication authentication
     ) throws IOException {
-        JwtTokenBuilder.build(response, authentication);
+        JwtTokenBuilder.build(loginResponse, authentication);
     }
 }
