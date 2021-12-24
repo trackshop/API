@@ -21,7 +21,11 @@ public final class TrackDAO {
         trackRepository.save(track);
     }
 
-    public Track get(String id) {
-        return trackRepository.getById(id);
+    public Track get(String id) throws TrackNotFoundException {
+        return trackRepository.findById(id).orElseThrow(() ->
+            new TrackNotFoundException(
+                "Track with id '" + id + "' could not be found in the database"
+            )
+        );
     }
 }

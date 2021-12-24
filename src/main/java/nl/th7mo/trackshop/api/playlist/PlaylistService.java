@@ -38,7 +38,7 @@ public class PlaylistService {
     }
 
     public void delete(String spotifyPlaylistId)
-        throws PlaylistNotFoundException {
+    throws PlaylistNotFoundException {
         Set<Track> trackToBeDeleted = playlistDAO.get(spotifyPlaylistId).getTracks();
         userTrackService.deleteTracks(trackToBeDeleted);
         playlistDAO.delete(spotifyPlaylistId);
