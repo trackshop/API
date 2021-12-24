@@ -27,7 +27,7 @@ public class UserTrackService {
 
     private void deleteTracksInUser(Set<Track> tracks, AppUser user) {
         List<String> trackIds = getTrackIdsFromTracks(tracks);
-        user.setLikedSongs(getFilteredTracks(trackIds, user.getLikedSongs()));
+        user.setLikedTracks(getFilteredTracks(trackIds, user.getLikedTracks()));
         user.setShoppingCart(getFilteredTracks(trackIds, user.getShoppingCart()));
     }
 

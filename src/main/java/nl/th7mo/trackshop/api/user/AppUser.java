@@ -34,7 +34,7 @@ public class AppUser {
     private Collection<Role> roles = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.REMOVE)
-    private Set<Track> likedSongs = new HashSet<>();
+    private Set<Track> likedTracks = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.REMOVE)
     private Set<Track> shoppingCart = new HashSet<>();

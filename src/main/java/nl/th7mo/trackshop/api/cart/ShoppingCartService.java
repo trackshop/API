@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +25,25 @@ public class ShoppingCartService {
     public void post(String trackId, String currentUserEmailAddress)
     throws TrackNotFoundException {
         Track track = trackDAO.get(trackId);
-        System.out.println(track);
         AppUser user = userDAO.get(currentUserEmailAddress);
-        System.out.println(user);
         user.getShoppingCart().add(track);
+    }
+
+    public Set<Track> getAll(String currentUserEmailAddress) {
+        AppUser user = userDAO.get(currentUserEmailAddress);
+
+        return user.getShoppingCart();
+    }
+
+    public void deleteAll(String currentUserEmailAddress) {
+        AppUser user = userDAO.get(currentUserEmailAddress);
+        user.getShoppingCart().clear();
+    }
+
+    public void delete(String trackId, String currentUserEmailAddress)
+    throws TrackNotFoundException {
+        AppUser user = userDAO.get(currentUserEmailAddress);
+        Track trackToBeDeleted = trackDAO.get(trackId);
+        user.getShoppingCart().remove(trackToBeDeleted);
     }
 }
