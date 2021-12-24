@@ -34,8 +34,7 @@ public class RoleController {
     public void makeAdmin(
         @RequestBody AppUser loggedInUser,
         Authentication authentication
-    )
-    throws UserNotFoundException {
+    ) throws UserNotFoundException {
         if (!superAdminTriesToModifyOwnPrivilege(authentication, loggedInUser))
         userService.addRoleToUser(
             loggedInUser.getEmailAddress(),
@@ -46,25 +45,25 @@ public class RoleController {
     @PostMapping("/revoke-admin")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void revokeAdmin(
-        @RequestBody AppUser loggedInUser,
+        @RequestBody AppUser issuedUser,
         Authentication authentication
     ) throws UserNotFoundException, CantRevokeSuperAdminPrivilegeException {
-        if (superAdminTriesToModifyOwnPrivilege(authentication, loggedInUser)) {
+        if (superAdminTriesToModifyOwnPrivilege(authentication, issuedUser)) {
             throw new CantRevokeSuperAdminPrivilegeException(
                 "The SUPER_ADMIN can't revoke roles of itself"
             );
         }
 
         userService.revokeRoleFromUser(
-            loggedInUser.getEmailAddress(),
+            issuedUser.getEmailAddress(),
             Roles.ADMIN
         );
     }
 
     private boolean superAdminTriesToModifyOwnPrivilege(
         Authentication authentication,
-        AppUser loggedInUser
+        AppUser issuedUser
     ) {
-        return authentication.getName().equals(loggedInUser.getEmailAddress());
+        return authentication.getName().equals(issuedUser.getEmailAddress());
     }
 }
