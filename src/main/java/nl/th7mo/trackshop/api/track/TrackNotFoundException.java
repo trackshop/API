@@ -1,6 +1,6 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.liked;
+package nl.th7mo.trackshop.api.track;
 
 import java.io.FileNotFoundException;
 
