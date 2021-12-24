@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/shopping-cart")
 public class ShoppingCartController {
@@ -22,6 +24,7 @@ public class ShoppingCartController {
          @PathVariable String trackId,
          @RequestBody AppUser user
      ) {
+          System.out.println("FIEWNIFNEWIOFNEWIOFIOEFNIOF");
          shoppingCartService.post(trackId, user);
      }
 }
