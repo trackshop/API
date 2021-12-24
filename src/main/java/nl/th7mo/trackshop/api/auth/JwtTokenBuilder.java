@@ -1,6 +1,6 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth.security;
+package nl.th7mo.trackshop.api.auth;
 
 import nl.th7mo.trackshop.api.util.DotenvAdapter;
 
@@ -34,8 +34,7 @@ public class JwtTokenBuilder {
     ) throws IOException {
         JwtTokenBuilder.response = response;
         User loggedInUser = (User) authentication.getPrincipal();
-        int oneHourInMilles = 60 * 60 * 1000;
-        String accessToken = buildAccessToken(loggedInUser, oneHourInMilles);
+        String accessToken = buildAccessToken(loggedInUser);
         setResponseBody(accessToken);
     }
 
@@ -47,16 +46,21 @@ public class JwtTokenBuilder {
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
     }
 
-    private static String buildAccessToken(User loggedInUser, int expireDuration) {
+    private static String buildAccessToken(User loggedInUser) {
         String jwtTokenSecret = DotenvAdapter.get("JWT_TOKEN_SECRET");
         Algorithm tokenEncryptAlgorithm = Algorithm.HMAC256(jwtTokenSecret.getBytes());
-        Date expireDate = new Date(System.currentTimeMillis() + expireDuration);
 
         return JWT.create()
             .withSubject(loggedInUser.getUsername())
-            .withExpiresAt(expireDate)
+            .withExpiresAt(getExpireTime())
             .withClaim("roles", getAuthoritiesFromLoggedInUser(loggedInUser))
             .sign(tokenEncryptAlgorithm);
+    }
+
+    private static Date getExpireTime() {
+        int oneHourInMilles = 60 * 60 * 1000;
+
+        return new Date(System.currentTimeMillis() + oneHourInMilles);
     }
 
     private static List<String> getAuthoritiesFromLoggedInUser(User loggedInUser) {

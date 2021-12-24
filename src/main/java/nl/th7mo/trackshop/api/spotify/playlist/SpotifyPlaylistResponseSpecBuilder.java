@@ -16,7 +16,9 @@ public final class SpotifyPlaylistResponseSpecBuilder {
         return responseSpec.onStatus(
             httpStatus -> httpStatus.value() == HttpStatus.NOT_FOUND.value(),
             response -> Mono.error(
-                new SpotifyPlaylistNotFoundException("Spotify playlist not found")
+                new SpotifyPlaylistNotFoundException(
+                    "The id given is not a valid spotify playlist id or the playlist is private"
+                )
             )
         );
     }

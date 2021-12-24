@@ -1,8 +1,8 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth.role;
+package nl.th7mo.trackshop.api.role;
 
-import nl.th7mo.trackshop.api.auth.user.UserService;
+import nl.th7mo.trackshop.api.user.UserService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,13 +1,13 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth.security;
+package nl.th7mo.trackshop.api.auth;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 
 import java.io.IOException;
 
@@ -25,19 +25,19 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         HttpServletRequest request,
         HttpServletResponse response,
         FilterChain filterChain
-    ) throws ServletException, IOException {
+    ) throws IOException, ServletException {
         this.request = request;
         this.response = response;
         tryToAuthorize(filterChain);
     }
 
-    private void tryToAuthorize(FilterChain filterChain)
-    throws IOException, ServletException {
+    private void tryToAuthorize(FilterChain filterChain) throws IOException, ServletException {
         if (doesNeedAuthorisation() && hasBearerHeader()) {
             try {
                 Authorizer.authorize(authorizationHeader);
             } catch (Exception jwtValidateException) {
                 ErrorResponseBuilder.build(jwtValidateException, response);
+                return;
             }
         }
 

@@ -1,6 +1,6 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth.security;
+package nl.th7mo.trackshop.api.auth;
 
 import nl.th7mo.trackshop.api.util.DotenvAdapter;
 
