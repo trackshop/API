@@ -6,7 +6,6 @@ import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylist;
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylistDAO;
 import nl.th7mo.trackshop.api.track.Track;
 
-import nl.th7mo.trackshop.api.user.UserService;
 import nl.th7mo.trackshop.api.user.UserTrackService;
 import org.springframework.stereotype.Component;
 
@@ -33,8 +32,8 @@ public class PlaylistService {
         playlistDAO.post(playlist);
     }
 
-    public Set<Playlist> get() {
-        return playlistDAO.get();
+    public Set<Playlist> getAll() {
+        return playlistDAO.getAll();
     }
 
     public void delete(String spotifyPlaylistId)

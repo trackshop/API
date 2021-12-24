@@ -41,8 +41,8 @@ public class PlaylistController {
     }
 
     @GetMapping
-    public Set<Playlist> get() {
-        return playlistService.get();
+    public Set<Playlist> getAll() {
+        return playlistService.getAll();
     }
 
     @ResponseStatus(code = HttpStatus.ACCEPTED)
