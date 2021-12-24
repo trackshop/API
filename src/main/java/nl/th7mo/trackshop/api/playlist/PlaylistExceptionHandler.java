@@ -5,33 +5,35 @@ package nl.th7mo.trackshop.api.playlist;
 import nl.th7mo.trackshop.api.spotify.playlist.InvalidSpotifyRequestException;
 import nl.th7mo.trackshop.api.spotify.playlist.SpotifyPlaylistNotFoundException;
 
+import nl.th7mo.trackshop.api.util.ExceptionResponseBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.Map;
 
 @ControllerAdvice
 public class PlaylistExceptionHandler {
 
-    @ResponseStatus(
-        value = HttpStatus.NOT_FOUND,
-        reason = "The id given is not a valid spotify playlist id or " +
-                "the playlist is private"
-    )
     @ExceptionHandler(SpotifyPlaylistNotFoundException.class)
-    public void handleException(SpotifyPlaylistNotFoundException e) {}
+    public ResponseEntity<Map<String, Object>> handleException(
+        SpotifyPlaylistNotFoundException e
+    ) {
+        return ExceptionResponseBuilder.build(HttpStatus.NOT_FOUND, e);
+    }
 
-    @ResponseStatus(
-        value = HttpStatus.NOT_FOUND,
-        reason = "There was no playlist found with the given playlist id"
-    )
     @ExceptionHandler(PlaylistNotFoundException.class)
-    public void handleException(PlaylistNotFoundException e) {}
+    public ResponseEntity<Map<String, Object>> handleException(
+        PlaylistNotFoundException e
+    ) {
+        return ExceptionResponseBuilder.build(HttpStatus.NOT_FOUND, e);
+    }
 
-    @ResponseStatus(
-        value = HttpStatus.INTERNAL_SERVER_ERROR,
-        reason = "The server made a bad request to the Spotify API"
-    )
     @ExceptionHandler(InvalidSpotifyRequestException.class)
-    public void handleException(InvalidSpotifyRequestException e) {}
+    public ResponseEntity<Map<String, Object>> handleException(
+        InvalidSpotifyRequestException e
+    ) {
+        return ExceptionResponseBuilder.build(HttpStatus.INTERNAL_SERVER_ERROR, e);
+    }
 }

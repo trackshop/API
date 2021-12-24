@@ -4,6 +4,7 @@ package nl.th7mo.trackshop.api.auth;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.FilterChain;
@@ -24,21 +25,23 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         HttpServletRequest request,
         HttpServletResponse response,
         FilterChain filterChain
-    ) throws IOException {
+    ) throws IOException, ServletException {
         this.request = request;
         this.response = response;
         tryToAuthorize(filterChain);
     }
 
-    private void tryToAuthorize(FilterChain filterChain) throws IOException {
+    private void tryToAuthorize(FilterChain filterChain) throws IOException, ServletException {
         if (doesNeedAuthorisation() && hasBearerHeader()) {
             try {
                 Authorizer.authorize(authorizationHeader);
-                filterChain.doFilter(request, response);
             } catch (Exception jwtValidateException) {
                 ErrorResponseBuilder.build(jwtValidateException, response);
+                return;
             }
         }
+
+        filterChain.doFilter(request, response);
     }
 
     private boolean doesNeedAuthorisation() {
