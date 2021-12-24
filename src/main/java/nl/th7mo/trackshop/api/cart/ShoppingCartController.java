@@ -26,32 +26,32 @@ public class ShoppingCartController {
 
      private final ShoppingCartService shoppingCartService;
 
+     @GetMapping
+     public Set<Track> getAll(Authentication requestingUser) {
+          return shoppingCartService.getAll(requestingUser.getName());
+     }
+
      @ResponseStatus(value = HttpStatus.CREATED)
      @PostMapping("/{trackId}")
      public void post(
          @PathVariable String trackId,
-         Authentication authentication
+         Authentication requestingUser
      ) throws TrackNotFoundException {
-         shoppingCartService.post(trackId, authentication.getName());
-     }
-
-     @GetMapping
-     public Set<Track> getAll(Authentication authentication) {
-          return shoppingCartService.getAll(authentication.getName());
+         shoppingCartService.post(trackId, requestingUser.getName());
      }
 
      @ResponseStatus(value = HttpStatus.ACCEPTED)
      @DeleteMapping
-     public void deleteAll(Authentication authentication) {
-          shoppingCartService.deleteAll(authentication.getName());
+     public void deleteAll(Authentication requestingUser) {
+          shoppingCartService.deleteAll(requestingUser.getName());
      }
 
      @ResponseStatus(value = HttpStatus.ACCEPTED)
      @DeleteMapping("/{trackId}")
      public void delete(
          @PathVariable String trackId,
-         Authentication authentication
+         Authentication requestingUser
      ) throws TrackNotFoundException {
-          shoppingCartService.delete(trackId, authentication.getName());
+          shoppingCartService.delete(trackId, requestingUser.getName());
      }
 }
