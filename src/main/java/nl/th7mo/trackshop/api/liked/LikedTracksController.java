@@ -2,6 +2,7 @@
 
 package nl.th7mo.trackshop.api.liked;
 
+import nl.th7mo.trackshop.api.track.Track;
 import nl.th7mo.trackshop.api.track.TrackNotFoundException;
 
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,8 +36,8 @@ public class LikedTracksController {
     }
 
     @GetMapping
-    public void getAll(Authentication authentication) {
-        likedTracksService.getAll(authentication.getName());
+    public Set<Track> getAll(Authentication authentication) {
+        return likedTracksService.getAll(authentication.getName());
     }
 
     @DeleteMapping
