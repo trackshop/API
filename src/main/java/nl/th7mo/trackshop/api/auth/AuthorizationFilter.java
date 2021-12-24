@@ -22,16 +22,17 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-        HttpServletRequest request,
-        HttpServletResponse response,
+        HttpServletRequest loginRequest,
+        HttpServletResponse loginResponse,
         FilterChain filterChain
     ) throws IOException, ServletException {
-        this.request = request;
-        this.response = response;
+        this.request = loginRequest;
+        this.response = loginResponse;
         tryToAuthorize(filterChain);
     }
 
-    private void tryToAuthorize(FilterChain filterChain) throws IOException, ServletException {
+    private void tryToAuthorize(FilterChain filterChain)
+    throws IOException, ServletException {
         if (doesNeedAuthorisation() && hasBearerHeader()) {
             try {
                 Authorizer.authorize(authorizationHeader);
