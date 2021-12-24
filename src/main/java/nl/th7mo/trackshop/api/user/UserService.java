@@ -5,6 +5,8 @@ package nl.th7mo.trackshop.api.user;
 import nl.th7mo.trackshop.api.role.Role;
 import nl.th7mo.trackshop.api.role.RoleDAO;
 
+import nl.th7mo.trackshop.api.role.Roles;
+import nl.th7mo.trackshop.api.util.LogErrorAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,7 +32,12 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username)
     throws UsernameNotFoundException {
-        AppUser user = userDAO.get(username);
+        AppUser user = null;
+        try {
+            user = userDAO.get(username);
+        } catch (UserNotFoundException e) {
+            LogErrorAdapter.log(e.getClass());
+        }
 
         if (user == null) {
             throw new UsernameNotFoundException(
@@ -60,14 +67,22 @@ public class UserService implements UserDetailsService {
         roleDAO.post(role);
     }
 
-    public void addRoleToUser(String emailAddress, String roleName) {
-        AppUser user = userDAO.getByEmailAddress(emailAddress);
-        Role role = roleDAO.getByName(roleName);
-
-        user.getRoles().add(role);
+    public void addRoleToUser(String emailAddress, Roles role)
+    throws UserNotFoundException {
+        AppUser user = userDAO.get(emailAddress);
+        Role roleForUser = roleDAO.getByName(role.value);
+        user.getRoles().add(roleForUser);
+        System.out.println(user.getRoles());
     }
 
-    public AppUser get(String emailAddress) {
+    public void revokeRoleFromUser(String emailAddress, Roles role)
+    throws UserNotFoundException {
+        AppUser user = userDAO.get(emailAddress);
+        Role roleRemovingFromUser = roleDAO.getByName(role.value);
+        user.getRoles().remove(roleRemovingFromUser);
+    }
+
+    public AppUser get(String emailAddress) throws UserNotFoundException {
         return userDAO.get(emailAddress);
     }
 

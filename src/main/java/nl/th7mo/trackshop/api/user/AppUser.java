@@ -17,7 +17,6 @@ import nl.th7mo.trackshop.api.track.Track;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -25,8 +24,6 @@ import java.util.UUID;
 public class AppUser {
 
     @Id
-    private UUID id = UUID.randomUUID();
-
     private String emailAddress;
     private String password;
 

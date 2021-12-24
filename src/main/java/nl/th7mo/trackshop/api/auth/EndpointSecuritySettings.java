@@ -2,6 +2,7 @@
 
 package nl.th7mo.trackshop.api.auth;
 
+import nl.th7mo.trackshop.api.role.Roles;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
@@ -17,40 +18,46 @@ public final class EndpointSecuritySettings {
     throws Exception {
         EndpointSecuritySettings.securitySettings = securitySettings;
         setUserEndpointConstraints();
+        setRoleEndpointConstraints();
         setPlaylistEndpointConstraints();
         setCartEndpointConstraints();
         setLikedTracksEndpointConstraints();
     }
 
     private static void setUserEndpointConstraints() throws Exception {
-        setConstraint(GET, "/user/**", "ROLE_ADMIN");
-        setConstraint(POST, "/role/**", "ROLE_ADMIN");
+        setConstraint(GET, "/user/**", Roles.ADMIN);
+        makeEndpointUnauthenticated(POST, "/signup/**");
+    }
+
+    private static void setRoleEndpointConstraints() throws Exception {
+        setConstraint(POST, "/role/make-admin", Roles.SUPER_ADMIN);
+        setConstraint(POST, "/role/revoke-admin", Roles.SUPER_ADMIN);
     }
 
     private static void setPlaylistEndpointConstraints() throws Exception {
         makeEndpointUnauthenticated(GET, "playlist/**");
-        setConstraint(POST, "/playlist/**", "ROLE_ADMIN");
-        setConstraint(DELETE, "/playlist/**", "ROLE_ADMIN");
+        setConstraint(POST, "/playlist/**", Roles.ADMIN);
+        setConstraint(DELETE, "/playlist/**", Roles.ADMIN);
     }
 
     private static void setCartEndpointConstraints() throws Exception {
-        setConstraint(GET, "/cart/**", "ROLE_USER");
-        setConstraint(POST, "/cart/**", "ROLE_USER");
-        setConstraint(DELETE, "/cart/**", "ROLE_USER");
+        setConstraint(GET, "/cart/**", Roles.USER);
+        setConstraint(POST, "/cart/**", Roles.USER);
+        setConstraint(DELETE, "/cart/**", Roles.USER);
     }
 
     private static void setLikedTracksEndpointConstraints() throws Exception {
-        setConstraint(GET, "/liked-tracks/**", "ROLE_USER");
-        setConstraint(POST, "/liked-tracks/**", "ROLE_USER");
-        setConstraint(DELETE, "/liked-tracks/**", "ROLE_USER");
+        setConstraint(GET, "/liked-tracks/**", Roles.USER);
+        setConstraint(POST, "/liked-tracks/**", Roles.USER);
+        setConstraint(DELETE, "/liked-tracks/**", Roles.USER);
     }
 
     private static void setConstraint(
-        HttpMethod httpMethod, String endpoint, String role
+        HttpMethod httpMethod, String endpoint, Roles role
     ) throws Exception {
         securitySettings.authorizeRequests()
             .antMatchers(httpMethod, endpoint)
-            .hasAnyAuthority(role);
+            .hasAnyAuthority(role.value);
     }
 
     private static void makeEndpointUnauthenticated(

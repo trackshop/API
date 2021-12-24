@@ -1,6 +1,7 @@
 package nl.th7mo.trackshop.api;
 
 import nl.th7mo.trackshop.api.role.Role;
+import nl.th7mo.trackshop.api.role.Roles;
 import nl.th7mo.trackshop.api.user.AppUser;
 import nl.th7mo.trackshop.api.user.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -24,27 +25,18 @@ public class Application {
     @Bean
     CommandLineRunner run(UserService userService) {
         return args -> {
-            Role user = new Role();
-            user.setName("ROLE_USER");
-
-            Role admin = new Role();
-            admin.setName("ROLE_ADMIN");
-            userService.post(user);
-            userService.post(admin);
+            for (Roles role : Roles.values()) {
+                userService.post(new Role(role.value));
+            }
 
             AppUser thimo = new AppUser();
             thimo.setEmailAddress("thimoquinten@gmail.com");
             thimo.setPassword("password");
-            AppUser chris = new AppUser();
-            chris.setEmailAddress("Chris");
-            chris.setPassword("another");
 
             userService.post(thimo);
-            userService.post(chris);
-
-            userService.addRoleToUser("thimoquinten@gmail.com", "ROLE_ADMIN");
-            userService.addRoleToUser("thimoquinten@gmail.com", "ROLE_USER");
-            userService.addRoleToUser("Chris", "ROLE_USER");
+            userService.addRoleToUser("thimoquinten@gmail.com", Roles.SUPER_ADMIN);
+            userService.addRoleToUser("thimoquinten@gmail.com", Roles.ADMIN);
+            userService.addRoleToUser("thimoquinten@gmail.com", Roles.USER);
         };
     }
 }
