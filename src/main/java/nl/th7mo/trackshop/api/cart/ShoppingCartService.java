@@ -8,9 +8,11 @@ import nl.th7mo.trackshop.api.user.AppUser;
 import nl.th7mo.trackshop.api.user.UserDAO;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+@Service
 @RequiredArgsConstructor
 @Transactional
 public class ShoppingCartService {
@@ -20,7 +22,9 @@ public class ShoppingCartService {
 
     public void post(String trackId, AppUser searchUser) {
         Track track = trackDAO.get(trackId);
+        System.out.println(track);
         AppUser user = userDAO.get(searchUser.getEmailAddress());
+        System.out.println(user);
         user.getShoppingCart().add(track);
     }
 }

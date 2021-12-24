@@ -7,7 +7,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 
 import java.io.IOException;
 
@@ -25,23 +24,21 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         HttpServletRequest request,
         HttpServletResponse response,
         FilterChain filterChain
-    ) throws ServletException, IOException {
+    ) throws IOException {
         this.request = request;
         this.response = response;
         tryToAuthorize(filterChain);
     }
 
-    private void tryToAuthorize(FilterChain filterChain)
-    throws IOException, ServletException {
+    private void tryToAuthorize(FilterChain filterChain) throws IOException {
         if (doesNeedAuthorisation() && hasBearerHeader()) {
             try {
                 Authorizer.authorize(authorizationHeader);
+                filterChain.doFilter(request, response);
             } catch (Exception jwtValidateException) {
                 ErrorResponseBuilder.build(jwtValidateException, response);
             }
         }
-
-        filterChain.doFilter(request, response);
     }
 
     private boolean doesNeedAuthorisation() {
