@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController

@@ -26,7 +26,7 @@ public class UserController {
         return userService.getAll();
     }
 
-    @ResponseStatus(code = HttpStatus.CREATED)
+//    @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping
     public void post(@RequestBody AppUser user) {
         userService.post(user);

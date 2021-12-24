@@ -2,19 +2,21 @@
 
 package nl.th7mo.trackshop.api.track;
 
+import nl.th7mo.trackshop.api.util.ExceptionResponseBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.Map;
 
 @ControllerAdvice
 public class TrackExceptionHandler {
 
-    @ResponseStatus(
-        value = HttpStatus.NOT_FOUND,
-        reason = "The id given is not a valid track id or the track" +
-                "is not found"
-    )
     @ExceptionHandler(TrackNotFoundException.class)
-    public void handleException(TrackNotFoundException e) {}
+    public ResponseEntity<Map<String, Object>> handleException(
+        TrackNotFoundException e
+    ) {
+        return ExceptionResponseBuilder.build(HttpStatus.NOT_FOUND, e);
+    }
 }
