@@ -1,6 +1,6 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth.role;
+package nl.th7mo.trackshop.api.role;
 
 import lombok.Getter;
 import lombok.Setter;

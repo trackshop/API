@@ -1,6 +1,6 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth.security;
+package nl.th7mo.trackshop.api.auth;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

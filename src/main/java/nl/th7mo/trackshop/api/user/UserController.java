@@ -1,6 +1,6 @@
 // XII·IX <> VII·X
 
-package nl.th7mo.trackshop.api.auth.user;
+package nl.th7mo.trackshop.api.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,7 @@ public class UserController {
         return userService.getAll();
     }
 
-    @ResponseStatus(code = HttpStatus.CREATED)
+//    @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping
     public void post(@RequestBody AppUser user) {
         userService.post(user);
