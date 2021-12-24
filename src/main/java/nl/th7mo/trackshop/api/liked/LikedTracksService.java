@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 import javax.transaction.Transactional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +27,24 @@ public class LikedTracksService {
     throws TrackNotFoundException {
         Track track = trackDAO.get(trackId);
         AppUser user = userDAO.get(currentUserEmailAddress);
-        user.getLikedSongs().add(track);
+        user.getLikedTracks().add(track);
+    }
+
+    public Set<Track> getAll(String currentUserEmailAddress) {
+        AppUser user = userDAO.get(currentUserEmailAddress);
+
+        return user.getLikedTracks();
+    }
+
+    public void deleteAll(String currentUserEmailAddress) {
+        AppUser user = userDAO.get(currentUserEmailAddress);
+        user.getLikedTracks().clear();
+    }
+
+    public void delete(String trackId, String currentUserEmailAddress)
+    throws TrackNotFoundException {
+        AppUser user = userDAO.get(currentUserEmailAddress);
+        Track trackToBeDeleted = trackDAO.get(trackId);
+        user.getLikedTracks().remove(trackToBeDeleted);
     }
 }
