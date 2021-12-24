@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 public class PlaylistDAO {
 
     private final PlaylistRepository playlistRepository;
-    private final TrackDAO trackDAO;
 
     public void post(Playlist playlist) {
         playlistRepository.save(playlist);
@@ -29,8 +28,13 @@ public class PlaylistDAO {
         return new HashSet<>(playlistRepository.findAll());
     }
 
-    public Playlist get(String spotifyPlaylistId) {
-        return playlistRepository.getById(spotifyPlaylistId);
+    public Playlist get(String spotifyPlaylistId)
+    throws PlaylistNotFoundException {
+        return playlistRepository.findById(spotifyPlaylistId).orElseThrow(() ->
+            new PlaylistNotFoundException(
+                "Playlist with id '" + spotifyPlaylistId + "' is not found"
+            )
+        );
     }
 
     public void delete(String spotifyPlaylistId)
