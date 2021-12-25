@@ -7,53 +7,33 @@ import nl.th7mo.trackshop.api.util.DotenvAdapter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 public class JwtTokenBuilder {
 
-    private static HttpServletResponse response;
+    private static User loggedInUser;
 
-    public static void build(
-        HttpServletResponse loginResponse,
-        Authentication authentication
-    ) throws IOException {
-        JwtTokenBuilder.response = loginResponse;
-        User loggedInUser = (User) authentication.getPrincipal();
-        String accessToken = buildAccessToken(loggedInUser);
-        setResponseBody(accessToken);
+    public static String build(Authentication authentication) throws IOException {
+        loggedInUser = (User) authentication.getPrincipal();
+
+        return buildAccessToken();
     }
 
-    private static void setResponseBody(String accessToken)
-        throws IOException {
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("access_token", accessToken);
-        response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
-    }
-
-    private static String buildAccessToken(User loggedInUser) {
+    private static String buildAccessToken() {
         String jwtTokenSecret = DotenvAdapter.get("JWT_TOKEN_SECRET");
         Algorithm tokenEncryptAlgorithm = Algorithm.HMAC256(jwtTokenSecret.getBytes());
 
         return JWT.create()
             .withSubject(loggedInUser.getUsername())
             .withExpiresAt(getJwtTokenExpireDate())
-            .withClaim("roles", getAuthoritiesFromLoggedInUser(loggedInUser))
+            .withClaim("roles", getGrantedAuthoritiesFromUser())
             .sign(tokenEncryptAlgorithm);
     }
 
@@ -63,7 +43,7 @@ public class JwtTokenBuilder {
         return new Date(System.currentTimeMillis() + oneHourInMilliseconds);
     }
 
-    private static List<String> getAuthoritiesFromLoggedInUser(User loggedInUser) {
+    private static List<String> getGrantedAuthoritiesFromUser() {
         return loggedInUser.getAuthorities()
             .stream()
             .map(GrantedAuthority::getAuthority).toList();

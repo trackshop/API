@@ -12,13 +12,13 @@ import java.util.Map;
 public class ExceptionResponseBuilder {
 
     public static ResponseEntity<Map<String, Object>> build(
-        HttpStatus status, Exception e
+        HttpStatus status, Exception exception
     ) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", new Date().toString());
         body.put("status", status.value());
         body.put("error", status.getReasonPhrase());
-        body.put("message", e.getMessage());
+        body.put("message", exception.getMessage());
 
         return ResponseEntity.status(status).body(body);
     }
