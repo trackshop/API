@@ -27,7 +27,7 @@ public final class JwtTokenDecoder {
         JwtTokenDecoder.decodedJWT = jwtVerifier.verify(jwtToken);
     }
 
-    public static Collection<SimpleGrantedAuthority> getAuthoritiesOfUser() {
+    public static Collection<SimpleGrantedAuthority> getGrantedAuthoritiesOfUser() {
         String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
 
         return stream(roles).map(SimpleGrantedAuthority::new).toList();
