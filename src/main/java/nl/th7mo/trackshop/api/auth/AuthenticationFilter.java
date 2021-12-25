@@ -12,15 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.FilterChain;
 
+import lombok.RequiredArgsConstructor;
+
 import java.io.IOException;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
+@RequiredArgsConstructor
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
-
-    public AuthenticationFilter(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
 
     @Override
     public Authentication attemptAuthentication(
@@ -44,6 +45,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         FilterChain filterChain,
         Authentication authentication
     ) throws IOException {
-        JwtTokenBuilder.build(loginResponse, authentication);
+        String accessToken = JwtTokenBuilder.build(authentication);
+        sendAccessTokenResponse(accessToken, loginResponse);
+    }
+
+    private static void sendAccessTokenResponse(
+        String accessToken,
+        HttpServletResponse loginResponse
+    ) throws IOException {
+        ResponseWriter responseWriter = new ResponseWriter();
+        responseWriter.addToResponseBody("access_token", accessToken);
+        loginResponse.setContentType(APPLICATION_JSON_VALUE);
+        responseWriter.write(loginResponse.getOutputStream());
     }
 }

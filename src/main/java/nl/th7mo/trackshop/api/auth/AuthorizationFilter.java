@@ -15,10 +15,9 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 public class AuthorizationFilter extends OncePerRequestFilter {
 
-    private HttpServletRequest request;
-    private HttpServletResponse response;
-
-    private static String authorizationHeader;
+    private HttpServletRequest loginRequest;
+    private HttpServletResponse loginResponse;
+    private String authorizationHeader;
 
     @Override
     protected void doFilterInternal(
@@ -26,8 +25,8 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         HttpServletResponse loginResponse,
         FilterChain filterChain
     ) throws IOException, ServletException {
-        this.request = loginRequest;
-        this.response = loginResponse;
+        this.loginRequest = loginRequest;
+        this.loginResponse = loginResponse;
         tryToAuthorize(filterChain);
     }
 
@@ -37,20 +36,20 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             try {
                 Authorizer.authorize(authorizationHeader);
             } catch (Exception jwtValidateException) {
-                ErrorResponseBuilder.build(jwtValidateException, response);
+                JwtErrorResponseWriter.write(jwtValidateException, loginResponse);
                 return;
             }
         }
 
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(loginRequest, loginResponse);
     }
 
     private boolean doesNeedAuthorisation() {
-        return !request.getServletPath().equals("/login");
+        return !loginRequest.getServletPath().equals("/login");
     }
 
     private boolean hasBearerHeader() {
-        authorizationHeader = request.getHeader(AUTHORIZATION);
+        authorizationHeader = loginRequest.getHeader(AUTHORIZATION);
 
         return authorizationHeader != null &&
             authorizationHeader.startsWith("Bearer ");
